@@ -70,3 +70,34 @@ function countrySort(country) {
     }
     return sortedList;
 }
+
+//GET BORDERS
+let borderLayer;
+$("#countrySelect").on("change", function () {
+  if (borderLayer !== undefined && borderLayer !== null) {
+    borderLayer.remove();
+  }
+
+  $.ajax({
+    url: "php/borders.php",
+    type: "GET",
+    dataType: "json",
+    data: { country: $("#countrySelect").val() },
+    success: function (result) {
+      const data = result.data;
+      if (result.status.name == "ok") {
+        
+        borderLayer = L.geoJSON(data, {
+          color: "black",
+          weight: 2,
+        }).addTo(map);
+
+        map.fitBounds(borderLayer.getBounds());
+    
+      }
+    },
+    error: function (errorThrown) {
+      console.log(errorThrown);
+    },
+  });
+});
