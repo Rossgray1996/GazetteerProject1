@@ -1,3 +1,5 @@
+// world map
+
 let map = L.map('map').setView([51.505, -0.09], 13);
 
 	let tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,12 +23,8 @@ let map = L.map('map').setView([51.505, -0.09], 13);
 	]).addTo(map);
 
 
+// country name for selection list
 
-
-
-
-
-// GET COUNTRY NAME FOR SELECTION LIST 
 $.ajax({
     url: "php/countries.php",
     type: "GET",
@@ -52,7 +50,7 @@ $.ajax({
     },
 });
 
-// SORT OUT COUNTRY NAMES ALPHABETICALLY & ALIGN WITH ISO CODES
+// sort out country names alphabetically 
 
 function countrySort(country) {
     let sortedList = [];
@@ -71,13 +69,16 @@ function countrySort(country) {
     return sortedList;
 }
 
-//GET BORDERS
+// borders
+
 let borderLayer;
 $("#countrySelect").on("change", function () {
   if (borderLayer !== undefined && borderLayer !== null) {
     borderLayer.remove();
   }
 
+  // gets borders for given countries and gives a black border
+  
   $.ajax({
     url: "php/borders.php",
     type: "GET",
@@ -101,3 +102,38 @@ $("#countrySelect").on("change", function () {
     },
   });
 });
+
+
+function success(pos) {
+
+  
+
+  const crd = pos.coords;
+
+  $('#countrySelect').val('GB');
+  $('#countrySelect').trigger('change'); 
+
+
+
+  console.log('Your current position is:');
+
+  console.log(`Latitude : ${crd.latitude}`);
+
+  console.log(`Longitude: ${crd.longitude}`);
+
+  console.log(`More or less ${crd.accuracy} meters.`);
+
+}
+
+
+
+function error(err) {
+
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+
+}
+
+
+
+navigator.geolocation.getCurrentPosition(success, error);
+  
