@@ -106,12 +106,24 @@ $("#countrySelect").on("change", function () {
 
 function success(pos) {
 
-  
 
   const crd = pos.coords;
 
-  $('#countrySelect').val('GB');
-  $('#countrySelect').trigger('change'); 
+  $.ajax({
+    url: `php/countryCode.php?lat=${crd.latitude}&lng=${crd.longitude}`,
+    type: "GET",
+    dataType: "json",
+    success: function (result) {
+      console.log(result);
+      $('#countrySelect').val(result['data'].trim());
+      $('#countrySelect').trigger('change'); 
+    },
+    error: function (errorThrown) {
+        console.log(errorThrown);
+    },
+});
+
+ 
 
 
 
@@ -137,3 +149,4 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error);
   
+
