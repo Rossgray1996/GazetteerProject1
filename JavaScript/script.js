@@ -24,16 +24,18 @@ let map = L.map('map').setView([51.505, -0.09], 13);
 
 
 // country name for selection list
-
+ 
 $.ajax({
     url: "php/countries.php",
     type: "GET",
     dataType: "json",
     success: function (result) {
         const data = result.data;
+       
+        // sort out country names alphabetically
         if (result.status.name == "ok") {
-            let countries = countrySort(data);
-            for (let iso in data) {
+          let isosSorted = Object.keys(data).sort(function(a,b){return data[a].localeCompare(data[b])});
+            for (let iso of isosSorted) {
                $("#countrySelect").append(
                     '<option value="' +
                     iso +
@@ -50,24 +52,8 @@ $.ajax({
     },
 });
 
-// sort out country names alphabetically 
 
-function countrySort(country) {
-    let sortedList = [];
-    let sortedNames = [];
-    for (i = 0; i < country.length; i++) {
-        sortedNames.push(country[i].name);
-    }
-    sortedNames.sort();
-    for (i = 0; i < sortedNames.length; i++) {
-        for (j = 0; j < country.length; j++) {
-            if (sortedNames[i] === country[j].name) {
-                sortedList.push(country[j]);
-            }
-        }
-    }
-    return sortedList;
-}
+
 
 // borders
 
