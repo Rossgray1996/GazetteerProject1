@@ -40,7 +40,7 @@
 	
 	 <!-- Button trigger modal -->
 
-	 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	 <button type="button" class="btn btn-primary" id="populationButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
 	Population
   </button>
   
@@ -54,7 +54,8 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-		  ...
+			Population: <span class="Population">-</span><br>
+			Currency: <span class="Currency">-</span> 
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -64,9 +65,31 @@
 	</div>
   </div>
 
+   <!-- Button trigger modal -->
 
-
-
+   <button type="button" class="btn btn-primary" id="currencyButton" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+	Currency
+  </button>
+  
+  <!-- Modal -->
+  
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Currency</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 
 	  <script src="JavaScript/jquery-3.6.0.min.js"></script>
 	  <script src="JavaScript/script.js"></script>

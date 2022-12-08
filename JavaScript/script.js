@@ -135,3 +135,21 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error);
 
+$("#populationButton").on("click", function () {
+let countryCode = $("#countrySelect").val();
+$.ajax({
+  url: `php/countryInfo.php?country=${countryCode}`,
+  type: "GET",
+  dataType: "json",
+  success: function (result) {
+    $( ".Population" ).text(result["data"][0]["population" ])
+    $( ".Currency" ).text(result["data"][0]["currencyCode" ])
+    
+    console.log(result);
+  },
+  error: function (errorThrown) {
+      console.log(errorThrown);
+  },
+});
+})
+

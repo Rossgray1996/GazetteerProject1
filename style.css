@@ -1,8 +1,25 @@
-.btn btn-primary {
-    
-    position:absolute;
-    top: 150px;
+#populationButton {
+    position: absolute;
+    top: 130px;
     z-index: 1000;
     left: 10px;
+    background-color: blue;
+    color: white;
+}
+
+#currencyButton {
+    position: absolute;
+    top: 170px;
+    z-index: 1000;
+    left: 10px;
+    background-color: blue;
+    color: white;
+}
+
+#countrySelect {
+    width: 15%;
+   position:relative;
+
+     
 }
 
