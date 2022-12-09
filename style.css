@@ -5,11 +5,12 @@
     left: 10px;
     background-color: blue;
     color: white;
+    padding: 1px;
 }
 
 #exchangeRateButton {
     position: absolute;
-    top: 170px;
+    top: 190px;
     z-index: 1000;
     left: 10px;
     background-color: blue;
