@@ -7,7 +7,7 @@
     color: white;
 }
 
-#currencyButton {
+#exchangeRateButton {
     position: absolute;
     top: 170px;
     z-index: 1000;

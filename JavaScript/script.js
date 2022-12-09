@@ -154,3 +154,21 @@ $.ajax({
 });
 })
 
+$("#exchangeRateButton").on("click", function () {
+  let exchangeRate = $("#countrySelect").val();
+  $.ajax({
+    url: `php/exchangeRate.php?country=${exchangeRate}`,
+    type: "GET",
+    dataType: "json",
+    success: function (result) {
+      $( ".exchangeRate" ).text(result["data"][0]["rates" ])
+     
+      
+      console.log(result);
+    },
+    error: function (errorThrown) {
+        console.log(errorThrown);
+    },
+  });
+  })
+
