@@ -144,6 +144,7 @@ $.ajax({
   success: function (result) {
     $( ".Population" ).text(result["data"][0]["population" ])
     $( ".Currency" ).text(result["data"][0]["currencyCode" ])
+    $( ".Capital" ).text(result["data"][0]["capital" ])
     
     console.log(result);
   },
