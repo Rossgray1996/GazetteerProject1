@@ -5,17 +5,30 @@
     left: 10px;
     background-color: blue;
     color: white;
-    padding: 1px;
+    padding: 10px 22px;
+    
 }
 
 #exchangeRateButton {
     position: absolute;
-    top: 190px;
+    top: 200px;
     z-index: 1000;
     left: 10px;
     background-color: blue;
     color: white;
+    padding: 10px 22px;
 }
+
+#weatherButton {
+    position: absolute;
+    top: 250px;
+    z-index: 1000;
+    left: 10px;
+    background-color: blue;
+    color: white;
+    padding: 10px 22px;
+}
+
 
 #countrySelect {
     width: 15%;

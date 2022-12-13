@@ -157,7 +157,7 @@ $.ajax({
 $("#exchangeRateButton").on("click", function () {
   let exchangeRate = $("#countrySelect").val();
   $.ajax({
-    url: `php/exchangeRate.php?country=${exchangeRate}`,
+    url: `php/exchangeRate.php=${exchangeRate}`,
     type: "GET",
     dataType: "json",
     success: function (result) {
