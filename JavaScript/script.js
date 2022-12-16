@@ -25,22 +25,25 @@ let map = L.map('map').setView([51.505, -0.09], 13);
 
 // country name for selection list
  
+let countryNames;
+
+
 $.ajax({
     url: "php/countries.php",
     type: "GET",
     dataType: "json",
     success: function (result) {
-        const data = result.data;
+      countryNames = result.data;
        
         // sort out country names alphabetically
         if (result.status.name == "ok") {
-          let isosSorted = Object.keys(data).sort(function(a,b){return data[a].localeCompare(data[b])});
+          let isosSorted = Object.keys(countryNames).sort(function(a,b){return countryNames[a].localeCompare(countryNames[b])});
             for (let iso of isosSorted) {
                $("#countrySelect").append(
                     '<option value="' +
                     iso +
                     '"> ' +
-                    data[iso] +
+                    countryNames[iso] +
                     "</option>"
                 );
             }
@@ -58,7 +61,7 @@ $.ajax({
 // borders
 
 let currencyCode;
-
+let countryName;
 
 
 let borderLayer;
@@ -88,7 +91,9 @@ $("#countrySelect").on("change", function () {
       }
       
       let countryCode = $("#countrySelect").val();
-     $.ajax({
+    countryName = countryNames[countryCode];
+   
+      $.ajax({
         url: `php/countryInfo.php?country=${countryCode}`,
         type: "GET",
         dataType: "json",
@@ -213,12 +218,13 @@ $("#exchangeRateButton").on("click", function () {
   $("#weatherButton").on("click", function () {
     let currentWeather = $("#countrySelect").val();
     $.ajax({
-      url: `php/weather.php?=${currentWeather}`,
+      url: `php/weather.php?countryName=${countryName}`,
       type: "GET",
       dataType: "json",
       success: function (result) {
-        $( ".currentWeather" ).text(result["data"][0]["rates" ])
-       
+        $( ".currentWeather").text(result["data"]["weather"][0]["description"]) 
+        $( ".temperature" ).text(result["data"]["main"]["temp"]) 
+        $( ".windSpeed" ).text(result["data"]["wind"]["speed"]) 
         
         console.log(result);
       },

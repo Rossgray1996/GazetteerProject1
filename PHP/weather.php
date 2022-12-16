@@ -6,7 +6,8 @@
  
 $executionStartTime = microtime(true) ; 
  
- $url='https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={a444db9e6f268184228a455b0e6a15f6}'
+ $url='https://api.openweathermap.org/data/2.5/weather?q='.$_REQUEST["countryName"].'&appid=a444db9e6f268184228a455b0e6a15f6';
+
 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -20,7 +21,7 @@ $ch = curl_init();
  
  
                 
-                if (array_key_exists("geonames", $decode)){ 
+                if (array_key_exists("weather", $decode)){ 
                 $output['status']['description'] = "success"; 
                 $output['status']['code'] = "200";
                 $output['status']['name'] = "ok";
@@ -28,8 +29,8 @@ $ch = curl_init();
                 $output['status']['description'] = "failure";
                 }
                 $output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-                if (array_key_exists("geonames", $decode))
-                $output['data'] = $decode["geonames"];
+                if (array_key_exists("weather", $decode))
+                $output['data'] = $decode;
  
 header('Content-Type: application/json; charset=UTF-8');
  

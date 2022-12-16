@@ -96,7 +96,7 @@
   <!-- Button trigger modal -->
 
   <button type="button" class="btn btn-primary" id="weatherButton" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-	<h6>Current Weather</h6>
+	<h6>Weather</h6>
    </button>
    
    <!-- Modal -->
@@ -105,11 +105,15 @@
 	 <div class="modal-dialog">
 	   <div class="modal-content">
 		 <div class="modal-header">
-		   <h5 class="modal-title" id="exampleModalLabel">Current weather</h5>
+		   <h5 class="modal-title" id="exampleModalLabel">Weather</h5>
 		   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		 </div>
 		 <div class="modal-body">
-			Current weather: <span class="currentWeather">-</span>
+			Current weather: <span class="currentWeather">-</span><br>
+			Temperature: <span class="temperature">-</span><br>
+			Wind Speed: <span class="windSpeed">-</span> km/h
+			
+			
 		 </div>
 		 <div class="modal-footer">
 		   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
