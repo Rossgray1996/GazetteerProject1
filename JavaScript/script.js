@@ -57,6 +57,10 @@ $.ajax({
 
 // borders
 
+let currencyCode;
+
+
+
 let borderLayer;
 $("#countrySelect").on("change", function () {
   if (borderLayer !== undefined && borderLayer !== null) {
@@ -82,6 +86,34 @@ $("#countrySelect").on("change", function () {
         map.fitBounds(borderLayer.getBounds());
     
       }
+      
+      let countryCode = $("#countrySelect").val();
+     $.ajax({
+        url: `php/countryInfo.php?country=${countryCode}`,
+        type: "GET",
+        dataType: "json",
+        success: function (result) {
+          $( ".Population" ).text(result["data"][0]["population" ])
+          currencyCode = result["data"][0]["currencyCode" ]
+          $( ".Currency" ).text(result["data"][0]["currencyCode" ])
+          $( ".Capital" ).text(result["data"][0]["capital" ])
+          
+          console.log(result);
+        },
+        error: function (errorThrown) {
+            console.log(errorThrown);
+        },
+      });
+     
+
+
+
+
+
+
+
+
+
     },
     error: function (errorThrown) {
       console.log(errorThrown);
@@ -135,6 +167,8 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error);
 
+// modal window button js code for Population, Currency & Capital
+
 $("#populationButton").on("click", function () {
 let countryCode = $("#countrySelect").val();
 $.ajax({
@@ -154,14 +188,16 @@ $.ajax({
 });
 })
 
+// modal window button js code for Exchange Rate
+
 $("#exchangeRateButton").on("click", function () {
   let exchangeRate = $("#countrySelect").val();
   $.ajax({
-    url: `php/exchangeRate.php=${exchangeRate}`,
+    url: `php/exchangeRate.php?currencyCode=${currencyCode}`,
     type: "GET",
     dataType: "json",
     success: function (result) {
-      $( ".exchangeRate" ).text(result["data"][0]["rates" ])
+      $( ".exchangeRate" ).text(result["data"])
      
       
       console.log(result);
@@ -172,3 +208,22 @@ $("#exchangeRateButton").on("click", function () {
   });
   })
 
+// modal window button js code for Weather
+
+  $("#weatherButton").on("click", function () {
+    let currentWeather = $("#countrySelect").val();
+    $.ajax({
+      url: `php/weather.php?=${currentWeather}`,
+      type: "GET",
+      dataType: "json",
+      success: function (result) {
+        $( ".currentWeather" ).text(result["data"][0]["rates" ])
+       
+        
+        console.log(result);
+      },
+      error: function (errorThrown) {
+          console.log(errorThrown);
+      },
+    });
+    })
