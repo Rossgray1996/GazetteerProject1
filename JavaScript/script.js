@@ -7,21 +7,6 @@ let map = L.map('map').setView([51.505, -0.09], 13);
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
-	let marker = L.marker([51.5, -0.09]).addTo(map);
-
-	let circle = L.circle([51.508, -0.11], {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5,
-		radius: 500
-	}).addTo(map);
-
-	let polygon = L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map);
-
 
 // country name for selection list
  
@@ -36,6 +21,7 @@ $.ajax({
       countryNames = result.data;
        
         // sort out country names alphabetically
+        
         if (result.status.name == "ok") {
           let isosSorted = Object.keys(countryNames).sort(function(a,b){return countryNames[a].localeCompare(countryNames[b])});
             for (let iso of isosSorted) {
@@ -98,7 +84,32 @@ $("#countrySelect").on("change", function () {
         type: "GET",
         dataType: "json",
         success: function (result) {
-          $( ".Population" ).text(result["data"][0]["population" ])
+        
+          // this get called after a country is selected and the country info is ready
+          $.ajax({
+            url: `php/getMarkers.php?country=${countryCode}`,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+              
+              // this gets called when the wiki entry info is ready
+               
+  
+              let markers = new L.MarkerClusterGroup(); 
+              
+            
+              for (const wikiEntry of result["data"]) {
+                markers.addLayer(L.marker([wikiEntry["lat"], wikiEntry["lng"]]));
+                console.log(wikiEntry); 
+              } 
+              map.addLayer(markers);
+            },
+            error: function (errorThrown) {
+                console.log(errorThrown);
+            },
+          });
+
+        $( ".Population" ).text(result["data"][0]["population" ])
           currencyCode = result["data"][0]["currencyCode" ]
           $( ".Currency" ).text(result["data"][0]["currencyCode" ])
           $( ".Capital" ).text(result["data"][0]["capital" ])
@@ -172,7 +183,7 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error);
 
-// modal window button js code for Population, Currency & Capital
+// modal window button, js code for Population, Currency & Capital
 
 $("#populationButton").on("click", function () {
 let countryCode = $("#countrySelect").val();
@@ -193,7 +204,7 @@ $.ajax({
 });
 })
 
-// modal window button js code for Exchange Rate
+// modal window button, js code for Exchange Rate
 
 $("#exchangeRateButton").on("click", function () {
   let exchangeRate = $("#countrySelect").val();
@@ -213,7 +224,7 @@ $("#exchangeRateButton").on("click", function () {
   });
   })
 
-// modal window button js code for Weather
+// modal window button, js code for Weather
 
   $("#weatherButton").on("click", function () {
     let currentWeather = $("#countrySelect").val();
@@ -221,13 +232,16 @@ $("#exchangeRateButton").on("click", function () {
       url: `php/weather.php?countryName=${countryName}`,
       type: "GET",
       dataType: "json",
-      success: function (result) {
+      success: function (result)
+       { 
+        let temperature = result["data"]["main"]["temp"]
         $( ".currentWeather").text(result["data"]["weather"][0]["description"]) 
-        $( ".temperature" ).text(result["data"]["main"]["temp"]) 
-        $( ".windSpeed" ).text(result["data"]["wind"]["speed"]) 
-        
-        console.log(result);
-      },
+        $( ".temperature" ).text(Math.round(temperature))
+        $( ".windSpeed" ).text(result["data"]["wind"]["speed"] )
+        $( ".feelsLike" ).text(result["data"]["main"]["feels_like"]) 
+       {Math.round(data.main.temp)}
+      
+    },
       error: function (errorThrown) {
           console.log(errorThrown);
       },

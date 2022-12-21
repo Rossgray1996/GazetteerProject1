@@ -3,11 +3,16 @@
     top: 170px;
     z-index: 1000;
     left: 10px;
-    background-color: blue;
-    color: white;
-    padding: 10px 10px;
-    border-radius: 15px;
-    
+    background-color: #ddd;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
 #exchangeRateButton {
@@ -15,10 +20,18 @@
     top: 245px;
     z-index: 1000;
     left: 10px;
-    background-color: blue;
-    color: white;
-    padding: 10px 10px;
-    border-radius: 15px;
+   
+    background-color: #ddd;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+
 }
 
 #weatherButton {
@@ -26,10 +39,16 @@
     top: 300px;
     z-index: 1000;
     left: 10px;
-    background-color: blue;
-    color: white;
-    padding: 10px 10px;
-    border-radius: 15px;
+    background-color: #ddd;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
 
@@ -39,5 +58,6 @@
    align-items: center;
    border-radius: 15px;
    z-index: 1000;
+   background-color: #ddd;
 
 }
